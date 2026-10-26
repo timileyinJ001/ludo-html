@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ludo Board</title>
+
+        
+    <style>
+                * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #eeeeee;
+            font-family: Arial, sans-serif;
+        }
+
+        .ludo-board {
+            width: min(90vw, 600px);
+            aspect-ratio: 1 / 1;
+            display: grid;
+            grid-template-columns: repeat(15, 1fr);
+            grid-template-rows: repeat(15, 1fr);
+            border: 2px solid #777;
+            background: white;
+        }
+
+        /* Four home bases */
+
+        .base {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid #777;
+        }
+
+        .blue {
+            background: #2878d0;
+            grid-column: 1 / 7;
+            grid-row: 1 / 7;
+        }
+
+        .red {
+            background: #e64b58;
+            grid-column: 10 / 16;
+            grid-row: 1 / 7;
+        }
+
+        .yellow {
+            background: #e6c84f;
+            grid-column: 1 / 7;
+            grid-row: 10 / 16;
+        }
+
+        .green {
+            background: #258e69;
+            grid-column: 10 / 16;
+            grid-row: 10 / 16;
+        }
+
+        /* Inner squares in each base */
+
+        .base-inner {
+            width: 72%;
+            height: 72%;
+            background: #f4f4f4;
+            border: 2px solid #999;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 12%;
+            padding: 12%;
+        }
+
+        .token {
+            border: 2px solid #999;
+        }
+
+        .blue .token {
+            background: #2878d0;
+        }
+
+        .red .token {
+            background: #e64b58;
+        }
+
+        .yellow .token {
+            background: #e6c84f;
+        }
+
+        .green .token {
+            background: #258e69;
+        }
+
+        /* Playing paths */
+
+        .path {
+            background: white;
+            border: 1px solid #aaa;
+        }
+
+        .blue-path {
+            grid-column: 2 / 7;
+            grid-row: 7 / 10;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+        }
+
+        .red-path {
+            grid-column: 7 / 10;
+            grid-row: 2 / 7;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(5, 1fr);
+        }
+
+        .green-path {
+            grid-column: 10 / 15;
+            grid-row: 7 / 10;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+        }
+
+        .yellow-path {
+            grid-column: 7 / 10;
+            grid-row: 10 / 15;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(5, 1fr);
+        }
+
+        .cell {
+            border: 1px solid #aaa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: clamp(8px, 1.7vw, 18px);
+        }
+
+        /* Coloured home lanes */
+
+        .blue-lane {
+            background: #2878d0;
+        }
+
+        .red-lane {
+            background: #e64b58;
+        }
+
+        .green-lane {
+            background: #258e69;
+        }
+
+        .yellow-lane {
+            background: #e6c84f;
+        }
+
+        /* Central HOME area */
+
+        .center {
+            grid-column: 7 / 10;
+            grid-row: 7 / 10;
+            background: white;
+            border: 1px solid #999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: clamp(10px, 2vw, 20px);
+            font-weight: bold;
+            color: #555;
+        }
+
+        /* Triangle-style centre */
+
+        .center::before {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 3vw solid transparent;
+            border-right: 3vw solid transparent;
+            border-top: 3vw solid #2878d0;
+            transform: translateY(-3vw);
+            opacity: 0.85;
+        }
+
+        /* Small-screen adjustments */
+
+        @media (max-width: 450px) {
+            .ludo-board {
+                width: 96vw;
+            }
+
+            .cell {
+                font-size: 8px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+        <div class="ludo-board">
+
+        <!-- Four coloured home bases -->
+
+        <div class="base blue">
+            <div class="base-inner">
+                <div class="token"></div>
+                <div class="token"></div>
+                <div class="token"></div>
+                <div class="token"></div>
+            </div>
+        </div>
+
+        <div class="base red">
+            <div class="base-inner">
+                <div class="token"></div>
+                <div class="token"></div>
+                <div class="token"></div>
+                <div class="token"></div>
+            </div>
+        </div>
+
+        <div class="base yellow">
+            <div class="base-inner">
+                <div class="token"></div>
+                <div class="token"></div>
+                <div class="token"></div>
+                <div class="token"></div>
+            </div>
+        </div>
+
+        <div class="base green">
+            <div class="base-inner">
+                <div class="token"></div>
+                <div class="token"></div>
+                <div class="token"></div>
+                <div class="token"></div>
+            </div>
+        </div>
+
+        <!-- Blue playing path -->
+
+        <div class="path blue-path">
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+
+            <div class="cell"></div>
+            <div class="cell blue-lane"></div>
+            <div class="cell blue-lane"></div>
+            <div class="cell blue-lane"></div>
+            <div class="cell"></div>
+
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+        </div>
+
+        <!-- Red playing path -->
+
+        <div class="path red-path">
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+
+            <div class="cell"></div>
+            <div class="cell red-lane"></div>
+            <div class="cell"></div>
+
+            <div class="cell"></div>
+            <div class="cell red-lane"></div>
+            <div class="cell"></div>
+
+            <div class="cell"></div>
+            <div class="cell red-lane"></div>
+            <div class="cell"></div>
+
+            <div class="cell"></div>
+            <div class="cell red-lane"></div>
+            <div class="cell"></div>
+        </div>
+
+        <!-- Green playing path -->
+
+        <div class="path green-path">
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+
+            <div class="cell green-lane"></div>
+            <div class="cell green-lane"></div>
+            <div class="cell green-lane"></div>
+            <div class="cell green-lane"></div>
+            <div class="cell"></div>
+
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+        </div>
+
+        <!-- Yellow playing path -->
+
+        <div class="path yellow-path">
+            <div class="cell"></div>
+            <div class="cell yellow-lane"></div>
+            <div class="cell"></div>
+
+            <div class="cell"></div>
+            <div class="cell yellow-lane"></div>
+            <div class="cell"></div>
+
+            <div class="cell"></div>
+            <div class="cell yellow-lane"></div>
+            <div class="cell"></div>
+
+            <div class="cell"></div>
+            <div class="cell yellow-lane"></div>
+            <div class="cell"></div>
+
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+        </div>
+
+        <!-- Centre -->
+
+        <div class="center">HOME</div>
+
+    </div>
+
+
+</body>
+</html>
